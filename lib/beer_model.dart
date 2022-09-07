@@ -33,15 +33,12 @@ class BeerList {
   }
 }
 
-Future<BeerList>getBeerList() async {
+Future<BeerList> getBeerList() async {
   final url = Uri.parse('https://api.punkapi.com/v2/beers');
   final response = await http.get(url);
   if (response.statusCode == 200) {
     return BeerList.fromJson(jsonDecode(response.body));
-
   } else {
     throw Exception('Error: ${response.reasonPhrase}');
   }
 }
-
-

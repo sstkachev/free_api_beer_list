@@ -18,7 +18,9 @@ class MyApp extends StatelessWidget {
 
         primarySwatch: Colors.blue,
       ),
-      home: const BeerList(),
+      home: const BeerListScreen(),
     );
   }
 }
+
+
