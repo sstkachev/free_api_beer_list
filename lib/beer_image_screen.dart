@@ -6,38 +6,51 @@ class ImageScreen extends StatelessWidget {
   final int index;
   final String name;
 
-  const ImageScreen({Key? key, required this.index, required this.name}) : super(key: key);
+  const ImageScreen({Key? key, required this.index, required this.name})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final beerList = getBeerList();
     return Scaffold(
       appBar: AppBar(
-        title: Text(name, style: const TextStyle(fontFamily: 'RubikDirt'),),
+        title: Text(
+          name,
+          style: const TextStyle(fontFamily: 'RubikDirt'),
+        ),
       ),
       body: FutureBuilder<BeerList>(
         future: beerList,
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             return Center(
-              child: Column(mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    height: 400,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Image.network(
-                          '${snapshot.data?.beerList?[index].image}'),
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 400,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Image.network(
+                            '${snapshot.data?.beerList?[index].image}'),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    '${snapshot.data?.beerList?[index].tagline}',
-
-                  ),
-                ],
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        '${snapshot.data?.beerList?[index].description}',
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             );
           } else {
@@ -45,7 +58,9 @@ class ImageScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  CircularProgressIndicator(color: Colors.blueGrey,),
+                  CircularProgressIndicator(
+                    color: Colors.blueGrey,
+                  ),
                   SizedBox(
                     height: 16,
                   ),

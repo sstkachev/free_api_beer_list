@@ -6,11 +6,13 @@ class Beer {
   final String? name;
   final String? tagline;
   final String? image;
+  final String? description;
 
   Beer({
     this.name,
     this.tagline,
     this.image,
+    this.description,
   });
 
   factory Beer.fromJson(Map<String, dynamic> json) {
@@ -18,6 +20,7 @@ class Beer {
       name: json['name'] as String,
       tagline: json['tagline'] as String,
       image: json['image_url'] as String,
+      description: json['description'] as String,
     );
   }
 }
