@@ -1,4 +1,6 @@
+import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 
 class Beer {
   final String? name;
@@ -30,3 +32,16 @@ class BeerList {
     return BeerList(beerList: beers);
   }
 }
+
+Future<BeerList>getBeerList() async {
+  final url = Uri.parse('https://api.punkapi.com/v2/beers');
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    return BeerList.fromJson(jsonDecode(response.body));
+
+  } else {
+    throw Exception('Error: ${response.reasonPhrase}');
+  }
+}
+
+
