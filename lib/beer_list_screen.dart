@@ -13,7 +13,6 @@ class _BeerListScreenState extends State<BeerListScreen> {
 
   @override
   void initState() {
-
     super.initState();
     beerList = getBeerList();
   }
@@ -21,17 +20,34 @@ class _BeerListScreenState extends State<BeerListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Beer List free API'),
+      ),
       body: FutureBuilder<BeerList>(
         future: beerList,
         builder: (context, snapshot) {
           if (snapshot.data != null) {
             return ListView.builder(
                 itemCount: snapshot.data?.beerList?.length,
+                itemExtent: 100,
                 itemBuilder: (context, index) {
-                  return Card(
-                    child: ListTile(
-                      title: Text('${snapshot.data?.beerList?[index].name}'),
-                      subtitle: Text('${snapshot.data?.beerList?[index].tagline}'),
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                    child: Card(
+                      child: ListTile(
+                        title: Text(
+                          '${snapshot.data?.beerList?[index].name}',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'RubikDirt',
+                          ),
+                        ),
+                        subtitle:
+                            Text('${snapshot.data?.beerList?[index].tagline}'),
+                        leading: Image.network(
+                            '${snapshot.data?.beerList?[index].image}'),
+                        isThreeLine: true,
+                      ),
                     ),
                   );
                 });
@@ -40,7 +56,7 @@ class _BeerListScreenState extends State<BeerListScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  CircularProgressIndicator(),
+                  CircularProgressIndicator(color: Colors.blueGrey,),
                   SizedBox(
                     height: 16,
                   ),
