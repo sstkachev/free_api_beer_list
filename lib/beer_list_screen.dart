@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:free_api_beer_list/beer_image_screen.dart';
 import 'package:free_api_beer_list/beer_model.dart';
 
 class BeerListScreen extends StatefulWidget {
@@ -32,9 +33,14 @@ class _BeerListScreenState extends State<BeerListScreen> {
                 itemExtent: 100,
                 itemBuilder: (context, index) {
                   return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 2, horizontal: 8),
                     child: Card(
                       child: ListTile(
+                        onTap: () => Navigator.push(context,
+                            MaterialPageRoute(builder: (_) {
+                          return ImageScreen(index: index, name: "${snapshot.data?.beerList?[index].name}",);
+                        })),
                         title: Text(
                           '${snapshot.data?.beerList?[index].name}',
                           style: const TextStyle(
@@ -56,7 +62,9 @@ class _BeerListScreenState extends State<BeerListScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: const [
-                  CircularProgressIndicator(color: Colors.blueGrey,),
+                  CircularProgressIndicator(
+                    color: Colors.blueGrey,
+                  ),
                   SizedBox(
                     height: 16,
                   ),
